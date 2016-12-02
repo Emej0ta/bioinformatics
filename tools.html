@@ -181,7 +181,45 @@
                             <td>Frame 2</td><td><span id="amino2" class="results clearable"></span></td>
                         </tr>
                     </table>
-                </div>  
+                </div>
+                <div id="orf_finder">
+                    NEW: find all the possible Open Reading Frames (ORFs) of your sequence. It will return all possible ORFs in the three possible frames,
+                    please select the minimum length of the resulting protein.
+                    To consider a ORF as valid, the sequence should have:
+                    <ul>
+                        <li>A start codon, by now only ATG or AUG</li>
+                        <li>A stop codon, namely TAA/UAA, TAG/UAG, or TGA/UGA</li>
+                        <li>A minimum length of amino acids between the start and stop codons, provided by the user. The bigger the amino acid sequence, the more probable it is to be a valid ORF</li>
+                    </ul>
+                    <div class="button">
+                        <input type="text" id="orf_min_length"> <input type="button" id="orf_check" value="Check">
+                        <div class="errors">
+                            <span id='error_orf' class="clearable"></span>
+                        </div>
+                        <table>
+                            <tr class="table_title">
+                                <td>Frame</td>
+                                <td>Number of ORFs</td>
+                                <td>ORFs</td>
+                            </tr>
+                            <tr>
+                                <td>Frame 0</td>
+                                <td><span id="orf_n0" class="clearable"></span></td>
+                                <td><span id="orfs0" class="clearable"></span></td>
+                            </tr>
+                            <tr>
+                                <td>Frame 1</td>
+                                <td><span id="orf_n1" class="clearable"></span></td>
+                                <td><span id="orfs1" class="clearable"></span></td>
+                            </tr>
+                            <tr>
+                                <td>Frame 2</td>
+                                <td><span id="orf_n2" class="clearable"></span></td>
+                                <td><span id="orfs2" class="clearable"></span></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>        
         </div>
     </div>
 

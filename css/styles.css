@@ -110,7 +110,7 @@ a:hover {
 #position {
     display: inline-flex;
     width: 75%;
-    height: 20px;
+    height: auto;
 }
 
 /* MENU AND LISTS */

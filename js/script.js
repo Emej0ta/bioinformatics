@@ -2,8 +2,7 @@ window.onload = function() {
     /* Helper functions */
     function checkSequence(sequence) {
         var seq_len = sequence.length;
-        removeText('check_error');
-        removeText('check_result');
+        clearFields(['check_error', 'check_result'], []);
         if (seq_len == 0) {
             addText({'check_error': 'OOOPS! There is no sequence!<br>'});
             return(false);
@@ -118,15 +117,30 @@ window.onload = function() {
         }
     }
 
-    function translateToProtein(index, len, seq, abb_one) {
+    function translateToProtein(index, seq, abb_one) {
         var protein = '';
+        var len = seq.length;
         for (index; index < len; index+=3) {
             var co = seq.substring(index, index + 3); // co = codon
             protein += trcodon(co, abb_one);
-            protein += '-';
+            protein += '-';            
         }
         protein = protein.slice(0, -1); // To remove the last '-' in the amino acid sequence
         return(protein);
+    }
+
+    function hasStop (sequence) {
+        stops = ['taa', 'tag', 'tga'];
+        for (var i = 0; i<stops.length; i++) {
+            var stop = sequence.indexOf(stops[i]);
+            if (stop) {
+                var orf = sequence.substring(0, stop + 3);
+                if (orf.length % 3 == 0) { //to check the stop codon is in the same reading frame that the start codon
+                    return sequence.substring(0, stop + 3);
+                } 
+            }   
+        }
+        return false;
     }
 
     // Cleans all fields and re-enables buttons after there is a change inside the sequence box
@@ -316,7 +330,7 @@ window.onload = function() {
             abb_one = true;
         }
         for (var i=0; i<3; i++) {
-            var protein = translateToProtein(i, N, seq_lower, abb_one);
+            var protein = translateToProtein(i, seq_lower, abb_one);
             proteins.push(protein);
         }
         addText({
@@ -332,4 +346,70 @@ window.onload = function() {
     document.getElementById('clear_aa').onclick = function() {
         clearFields(['amino', 'amino1', 'amino2'], ['translate_button']);
     }
+
+    document.getElementById('orf_check').onclick = function() {
+        var sequence = document.getElementById('sequence').value.toLowerCase();
+        var validSeq = checkSequence(sequence);
+        if (! validSeq) {
+            addText({'error_orf': 'Sorry, invalid sequence'});
+            return;
+        }
+        sequence = translateToDNA(sequence);
+        var min_length = parseInt(document.getElementById('orf_min_length').value);
+        if (min_length < 0 || min_length > sequence.length) {
+            addText({
+                'error_orf': 'ERROR! Provide a number equal or bigger than 0; and equal or smaller than your sequence',
+            })
+            return;
+        }
+        var orfs ={};
+        for (var i= 0; i<3; i++) { // get the results for the three frames
+            var proteins = [];
+            for (var index=i; index < sequence.length; index+=3) {
+                var codon = sequence.substring(index, index + 3);
+                //check if there is a stop codon in the substring, and afterwards, if its length is bigger than the minimum length provided by the user
+                if (codon === 'atg') {
+                    var open_frame = sequence.substring(index, sequence.length); 
+                    var is_orf = hasStop(open_frame);
+                    if (is_orf) {
+                        var protein_size = is_orf.length/3;
+                        if (protein_size >= min_length) {
+                            proteins.push(is_orf.toUpperCase());
+                        }
+                    }
+                }
+                orfs[i] = [proteins];   
+            }
+        }
+        if (orfs.length === 0) {
+            addText({'error_orf': 'I have not found any valid ORFs in your sequence'});
+            return;
+        }
+        for (var key in orfs) {
+            if (orfs.hasOwnProperty(key)) {
+                var sequences = orfs[key];
+                var intKey = parseInt(key);
+                for (var i=0; i< sequences.length; i++) {
+                    if (intKey === 0) {
+                        addText({
+                            'orf_n0': sequences[i].length,
+                            'orfs0': sequences[i],
+                        });
+                    }
+                    else if (intKey === 1) {
+                        addText({
+                            'orf_n1': sequences[i].length,
+                            'orfs1': sequences[i],
+                        });
+                    }
+                    else if (intKey === 2) {
+                        addText({
+                            'orf_n2': sequences[i].length,
+                            'orfs2': sequences[i],
+                        });
+                    }  
+                }
+            } 
+        }
+    }   
 }
