@@ -9,16 +9,19 @@ window.onload = function() {
         }
 
         //Checks that the sequence has only the correct bases:
-        if (sequence.match(/[atgcu]/gi).length == seq_len) {
-            //Checks that the sequence is not a mix of DNA and RNA:
-            if ((sequence.indexOf('u') > -1) && (sequence.indexOf('t') > -1)) {
-                addText({'check_error':'It seems that you pasted a mix of DNA and RNA...<br>'});
-                return(false);
+        var regex = sequence.match(/[atcgu]/gi);
+        if (regex !== null) {
+            if (regex.length == seq_len) {
+                //Checks that the sequence is not a mix of DNA and RNA:
+                if ((sequence.indexOf('u') > -1) && (sequence.indexOf('t') > -1)) {
+                    addText({'check_error':'It seems that you pasted a mix of DNA and RNA...<br>'});
+                    return(false);
+                }
+                else if (sequence.toLowerCase().indexOf('u') > -1) {
+                    return('RNA');
+                }
+                return('DNA'); //If the sequence does not have Us or Ts it will return a DNA chain as default
             }
-            else if (sequence.toLowerCase().indexOf('u') > -1) {
-                 return('RNA');
-            }
-            return('DNA'); //If the sequence does not have Us or Ts it will return a DNA chain as default
         }
         return(false);
     }
