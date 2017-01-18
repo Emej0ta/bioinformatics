@@ -7,18 +7,20 @@ window.onload = function() {
             addText({'check_error': 'OOOPS! There is no sequence!<br>'});
             return(false);
         }
-        //Checks that the sequence is not a mix of DNA and RNA:
-        if ((sequence.indexOf('u') > -1) && (sequence.indexOf('t') > -1)) {
-            addText({'check_error':'It seems that your pasted a mix of DNA and RNA...<br>'});
-            return(false);
-        }
+
         //Checks that the sequence has only the correct bases:
-        if (sequence.match(/[atucg]+$/i)) {
-            if (sequence.toLowerCase().indexOf('u') > -1) {
-                return('RNA');
+        if (sequence.match(/[atgcu]/gi).length == seq_len) {
+            //Checks that the sequence is not a mix of DNA and RNA:
+            if ((sequence.indexOf('u') > -1) && (sequence.indexOf('t') > -1)) {
+                addText({'check_error':'It seems that you pasted a mix of DNA and RNA...<br>'});
+                return(false);
+            }
+            else if (sequence.toLowerCase().indexOf('u') > -1) {
+                 return('RNA');
             }
             return('DNA'); //If the sequence does not have Us or Ts it will return a DNA chain as default
         }
+        return(false);
     }
 
     function clearAllFields() {
@@ -160,10 +162,12 @@ window.onload = function() {
                 });
                 return true;
             }
-            addText({'check_result': 'Your sequence is valid, you are ready to go!. Sequence type: <em>RNA</em>'});
-            return true;
+            if (isSeqValid === 'RNA') {
+                addText({'check_result': 'Your sequence is valid, you are ready to go!. Sequence type: <em>RNA</em>'});
+                return true;
+            }
         }
-        addText({'check_error': 'Sorry! Your sequence is not valid'});
+        addText({'check_error': 'Invalid sequence'});
     }
 
     // Clears all parameters entered
