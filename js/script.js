@@ -355,6 +355,7 @@ window.onload = function() {
     }
 
     document.getElementById('orf_check').onclick = function() {
+        document.getElementById('orf_check').disabled = true;
         var sequence = document.getElementById('sequence').value.toLowerCase();
         var validSeq = checkSequence(sequence);
         if (! validSeq) {
@@ -362,7 +363,13 @@ window.onload = function() {
             return;
         }
         sequence = translateToDNA(sequence);
-        var min_length = parseInt(document.getElementById('orf_min_length').value);
+        var min_orf = document.getElementById('orf_min_length').value;
+        var valid_orf = min_orf.match(/[0-9]+/);
+        if ( (!valid_orf) || (valid_orf.length > min_orf.length)) {
+            addText({'error_orf':'Working on it'});
+            return;
+        }
+        var min_length = parseInt(valid_orf);
         if (min_length < 0 || min_length > sequence.length) {
             addText({
                 'error_orf': 'ERROR! Provide a number equal or bigger than 0; and equal or smaller than your sequence',
