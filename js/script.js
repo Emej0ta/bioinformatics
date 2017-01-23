@@ -379,7 +379,7 @@ window.onload = function() {
                     var open_frame = sequence.substring(index, sequence.length); 
                     var is_orf = hasStop(open_frame);
                     if (is_orf) {
-                        var protein_size = is_orf.length/3;
+                        var protein_size = (is_orf.length - 3)/3;
                         if (protein_size >= min_length) {
                             proteins.push(is_orf.toUpperCase());
                         }
