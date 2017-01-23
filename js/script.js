@@ -26,25 +26,20 @@ window.onload = function() {
         return(false);
     }
 
-    function clearAllFields() {
-        var clearableElements = document.getElementsByClassName('clearable');
-        var buttons = document.getElementsByClassName('buttons');
+    function clearFields(class_el, buttons, all = false) {
+        if (all === true) {
+            var clearableElements = document.getElementsByClassName('clearable');
+            var buttons = document.getElementsByClassName('buttons');
+        }
+        else {
+            var clearableElements = document.getElementsByClassName(class_el);
+            var buttons = document.getElementsByClassName(buttons);
+        }
         for (var i=0; i<buttons.length; i++) {
             buttons[i].disabled = false;
         }
         for (var i=0; i<clearableElements.length; i++) {
             var element = clearableElements[i];
-            if (element.innerHTML !== null) {
-                removeText(element);
-            }
-        }
-    }
-    function clearFields(elements, buttons) {
-        for (var i=0; i<buttons.length; i++) {
-            document.getElementById(buttons[i]).disabled = false;
-        }
-        for (var i=0; i<elements.length; i++) {
-            var element = document.getElementById(elements[i]);
             if (element.innerHTML !== null) {
                 removeText(element);
             }
@@ -150,7 +145,7 @@ window.onload = function() {
 
     // Cleans all fields and re-enables buttons after there is a change inside the sequence box
     document.getElementById('sequence').onchange = function() {
-        clearAllFields();
+        clearFields(elements = '', buttons = '', all = true);
     }
 
     // Function that will check the sequence pasted and, if valid, will inform the user if it is a DNA or a RNA chain.
@@ -175,7 +170,7 @@ window.onload = function() {
 
     // Clears all parameters entered
     document.getElementById('clear_all').onclick = function() {
-        clearAllFields();
+        clearFields(elements ='', buttons= '', all = true);
     }
 
     // Base counter function 
@@ -278,9 +273,7 @@ window.onload = function() {
     };
 
     document.getElementById('ss').onchange = function() {
-        var elements = ['ss_error', 'position', 'highlighted_seq', 'highlight', 'repetitions'];
-        var bttns = ['subseq_button'];
-        clearFields(elements, bttns);
+        clearFields('subseq_clear', 'ss_btn_clear');
     }
 
     // Converts the DNA chain into a RNA one, exchanging thymine for uracil
@@ -347,11 +340,11 @@ window.onload = function() {
         });
     }
     document.getElementById('abb_choices').onchange = function () {
-        clearFields(['amino', 'amino1', 'amino2'], ['translate_button']);
+        clearFields(elements = 'aa_clear', buttons = "aa_btn_clear");
     }
 
     document.getElementById('clear_aa').onclick = function() {
-        clearFields(['amino', 'amino1', 'amino2'], ['translate_button']);
+        clearFields(elements = 'aa_clear', buttons = "aa_btn_clear");
     }
 
     document.getElementById('orf_check').onclick = function() {
@@ -425,5 +418,10 @@ window.onload = function() {
                 }
             } 
         }
-    }   
+    }
+    document.getElementById('orf_min_length').onchange = function () {
+        var elements = ['error_orf', 'orf_n0', 'orf_n1', 'orf_n2', 'orfs0', 'orfs1', 'orfs2'];
+        var buttons = ['orf_check'];
+        clearFields(elements = 'orf_clear', buttons = 'orf_btn_clear');
+    }    
 }

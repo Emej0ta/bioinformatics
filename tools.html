@@ -33,13 +33,13 @@
                 Although not mandatory, I encourage you to check if your sequence is valid. Be aware that, although you can paste either a DNA or a RNA sequence, some of the analyses are type-selective.
                 To check whether your sequence is valid, click the button below.
                 <div class="button">
-                    <input type="button" value="Check sequence" id="sequence_check" class="buttons">
+                    <input type="button" value="Check sequence" id="sequence_check" class="buttons checkseq_btn_clear">
                     <input type="button" value="Clear all fields" id="clear_all">
                 </div>
                 <div id="check_result" class="good clearable">
-                    <span id="typeSeq" class="clearable"></span>
+                    <span id="typeSeq" class="clearable typeseq_clear"></span>
                 </div>
-                <div id="check_error" class="errors clearable">
+                <div id="check_error" class="errors clearable typeseq_clear">
                 </div>
             </div>
 
@@ -52,9 +52,9 @@
                     This function will count each base and the total number of bases of your sequence.
                     It will also calculate the percentage of each base.
                     <div class="button">
-                        <input type="button" value="Count Bases" id="bc_button" class="buttons">
+                        <input type="button" value="Count Bases" id="bc_button" class="buttons clear_count_btn">
                     </div>
-                    <div id="count_error" class="errors clearable">
+                    <div id="count_error" class="errors clearable count_clear">
 
                     </div>  
                     <table id="bc_results">
@@ -64,28 +64,28 @@
                             <td>Percentage</td>
                         </tr>        
                         <tr>
-                            <td>Adenine</td><td id="A" class="results clearable"></td>
-                            <td><span id="perc_A" class="results clearable"></span></td>
+                            <td>Adenine</td><td id="A" class="results clearable count_clear"></td>
+                            <td><span id="perc_A" class="results clearable count_clear"></span></td>
                         </tr>
                         <tr>
-                            <td>Thymine</td><td id="T" class="results clearable"></td>
-                            <td><span id="perc_T" class="results clearable"></span></td>
+                            <td>Thymine</td><td id="T" class="results clearable count_clear"></td>
+                            <td><span id="perc_T" class="results clearable count_clear"></span></td>
                         </tr>
                         <tr>
-                            <td>Cytosine</td><td id="C" class="results clearable"></td>
-                            <td><span id="perc_C" class="results clearable"></span></td>
+                            <td>Cytosine</td><td id="C" class="results clearable count_clear"></td>
+                            <td><span id="perc_C" class="results clearable count_clear"></span></td>
                         <tr>
                         <tr>
-                            <td>Guanine</td><td id="G" class="results clearable"></td>
-                            <td><span id="perc_G" class="results clearable"></span></td>
+                            <td>Guanine</td><td id="G" class="results clearable count_clear"></td>
+                            <td><span id="perc_G" class="results clearable count_clear"></span></td>
                         </tr>
                         <tr>
-                            <td>Uracyl</td><td id="U" class="results clearable"></td>
-                            <td><span id="perc_U" class="results clearable"></span></td>
+                            <td>Uracyl</td><td id="U" class="results clearable count_clear"></td>
+                            <td><span id="perc_U" class="results clearable count_clear"></span></td>
                         </tr>    
                         <tr>
-                            <td>Total</td><td id="N" class="results clearable"></td>
-                            <td><span id="perc_N" class="results clearable"></span></td>
+                            <td>Total</td><td id="N" class="results clearable count_clear"></td>
+                            <td><span id="perc_N" class="results clearable count_clear"></span></td>
                         </tr>
                     </table>      
                 </div>
@@ -98,21 +98,21 @@
                     <br>
                     <span class="important">Updated 21-11-2016:</span> Now this function will return ALL the occurences of the sub-sequence.
                     <div class="text_area">
-                        <textarea id="ss" class="sequence_box clearable " placeholder="Please, paste your subsequence here"></textarea>
+                        <textarea id="ss" class="sequence_box clearable" placeholder="Please, paste your subsequence here"></textarea>
                     </div>    
                     <div class="button">    
-                        <input type="button" value="Search" id="subseq_button" class="buttons">
+                        <input type="button" value="Search" id="subseq_button" class="buttons ss_btn_clear">
                     </div>
-                    <div id= "ss_error" class="errors clearable">
+                    <div id= "ss_error" class="errors clearable subseq_clear">
 
                     </div>    
                     <div id="position_result">
-                        Position(s) of the sub-sequence(s): <textarea id="position" class="results clearable" placeholder="Position(s)" readonly></textarea>
+                        Position(s) of the sub-sequence(s): <textarea id="position" class="results clearable subseq_clear" placeholder="Position(s)" readonly></textarea>
                         <div>
-                            Number of repetitions: <span id="repetitions" class="results clearable"></span>
+                            Number of repetitions: <span id="repetitions" class="results clearable subseq_clear"></span>
                         </div>
                         <div>
-                            Sub-sequence(s) highlighted: <span id="highlighted_seq" class="results clearable adjusted_width"></span>
+                            Sub-sequence(s) highlighted: <span id="highlighted_seq" class="results clearable subseq_clear adjusted_width"></span>
                         </div>
                     </div>
                 </div>  
@@ -124,7 +124,7 @@
                     With this tool you can automatically get the complementary sequence of your DNA chain. Be aware that this functionallity
                     will not work work with messenger RNA sequences, as mRNA is single-stranded. To get the complementary sequence, please, click the button below:
                     <div class="button">
-                        <input type="button" value="Get Complementary Sequence" id="compl_button" class="buttons">
+                        <input type="button" value="Get Complementary Sequence" id="compl_button" class="buttons compl_btn_clear">
                     </div>
                     <div id="compl_seq">
                         <div id="compl_error" class="errors clearable"></div>
@@ -139,14 +139,14 @@
                         This functionality will allow you to obtain your sequence as a DNA or RNA chains. It will automatically detect what kind
                         of sequence you pasted and convert it to the other type. Try it clicking the button below.
                         <div class="button">
-                            <input type="button" value="Convert sequence!" id="conv_button" class="buttons">
+                            <input type="button" value="Convert sequence!" id="conv_button" class="buttons transl_btn_clear">
                         </div>
                         <div id="seq_type" class="results">
-                            <span id="primary_seq" class="results clearable"></span><span id="sequence_type" class="results clearable"></span><span id="converted_Seq" class="results clearable"></span><span id="conv_type clearable" class="results clearable"></span>
+                            <span id="primary_seq" class="results clearable translate_clear"></span><span id="sequence_type" class="results clearable"></span><span id="converted_Seq" class="results clearable"></span><span id="conv_type clearable" class="results clearable"></span>
                         </div>    
-                        <div id="conv_error" class="errors clearable">
+                        <div id="conv_error" class="errors clearable translate_clear">
                         </div>
-                        <textarea id="rna_seq" class="sequence_box clearable" placeholder="Your translated sequence will appear here" readonly></textarea>    
+                        <textarea id="rna_seq" class="sequence_box clearable translate_clear" placeholder="Your translated sequence will appear here" readonly></textarea>    
                     </div>      
                 </div>
             <!-- TRANSLATE TO PROTEIN -->
@@ -161,10 +161,10 @@
                             <option value="three_abb">Three-letter abbreviation</option>
                             <option value="one_abb">One-letter abbreviation</option>
                         </select>
-                        <input type="button" value="Translate" id="translate_button" class="buttons">
+                        <input type="button" value="Translate" id="translate_button" class="buttons aa_btn_clear">
                         <input type="button" value="Clear" id="clear_aa">
                     </div>
-                    <div id="aa_error" class="errors clearable">
+                    <div id="aa_error" class="errors clearable aa_clear">
                     </div>  
                     <table id="aa_result">
                         <tr class="table_title">
@@ -172,13 +172,13 @@
                             <td>Amino acid sequence</td>
                         </tr>    
                         <tr>
-                            <td>Frame 0</td><td><span id="amino" class="results clearable"></span></td>
+                            <td>Frame 0</td><td><span id="amino" class="results clearable aa_clear"></span></td>
                         </tr>
                         <tr>
-                            <td>Frame 1</td><td><span id="amino1" class="results clearable"></span></td>
+                            <td>Frame 1</td><td><span id="amino1" class="results clearable aa_clear"></span></td>
                         </tr>    
                         <tr>
-                            <td>Frame 2</td><td><span id="amino2" class="results clearable"></span></td>
+                            <td>Frame 2</td><td><span id="amino2" class="results clearable aa_clear"></span></td>
                         </tr>
                     </table>
                 </div>
@@ -192,9 +192,9 @@
                         <li>A minimum length of amino acids between the start and stop codons, provided by the user. The bigger the amino acid sequence, the more probable it is to be a valid ORF</li>
                     </ul>
                     <div class="button">
-                        <input type="text" id="orf_min_length"> <input type="button" id="orf_check" value="Check">
+                        <input type="text" id="orf_min_length"> <input type="button" id="orf_check" value="Check" class="buttons orf_btn_clear">
                         <div class="errors">
-                            <span id='error_orf' class="clearable"></span>
+                            <span id='error_orf' class="clearable orf_clear"></span>
                         </div>
                         <table>
                             <tr class="table_title">
@@ -204,18 +204,18 @@
                             </tr>
                             <tr>
                                 <td>Frame 0</td>
-                                <td><span id="orf_n0" class="clearable"></span></td>
-                                <td><span id="orfs0" class="clearable"></span></td>
+                                <td><span id="orf_n0" class="clearable orf_clear"></span></td>
+                                <td><span id="orfs0" class="clearable orf_clear adjusted_width"></span></td>
                             </tr>
                             <tr>
                                 <td>Frame 1</td>
-                                <td><span id="orf_n1" class="clearable"></span></td>
-                                <td><span id="orfs1" class="clearable"></span></td>
+                                <td><span id="orf_n1" class="clearable orf_clear"></span></td>
+                                <td><span id="orfs1" class="clearable orf_clear adjusted_width"></span></td>
                             </tr>
                             <tr>
                                 <td>Frame 2</td>
-                                <td><span id="orf_n2" class="clearable"></span></td>
-                                <td><span id="orfs2" class="clearable"></span></td>
+                                <td><span id="orf_n2" class="clearable orf_clear"></span></td>
+                                <td><span id="orfs2" class="clearable orf_clear adjusted_width"></span></td>
                             </tr>
                         </table>
                     </div>
