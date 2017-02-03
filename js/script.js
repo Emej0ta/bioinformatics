@@ -121,11 +121,17 @@ window.onload = function() {
         var protein = '';
         var len = seq.length;
         for (index; index < len; index+=3) {
-            var co = seq.substring(index, index + 3); // co = codon
-            protein += trcodon(co, abb_one);
-            protein += '-';            
+            if (index < len -3){
+                var co = seq.substring(index, index + 3); // co = codon
+                protein += trcodon(co, abb_one);
+                protein += '-'; 
+            }
+            else {
+                var co = seq.substring(index, len);
+                protein += trcodon(co, abb_one);
+            }            
         }
-        protein = protein.slice(0, -1); // To remove the last '-' in the amino acid sequence
+        //protein = protein.slice(0, -1); // To remove the last '-' in the amino acid sequence
         return(protein);
     }
 
@@ -271,7 +277,7 @@ window.onload = function() {
         addText({'highlighted_seq': new_seq});
         addText({'repetitions': pos_list.length});
     };
-
+    //Clears the written fields when the user changes the subsequence
     document.getElementById('ss').onchange = function() {
         clearFields('subseq_clear', 'ss_btn_clear');
     }
@@ -312,6 +318,7 @@ window.onload = function() {
             compl_seq += comp_base(b);
         }
         addText({'compl_result': compl_seq});
+        return true;
     }
 
     document.getElementById('translate_button').onclick = function () {
@@ -319,7 +326,7 @@ window.onload = function() {
         var seq = document.getElementById('sequence').value;
         if (! checkSequence(seq)) {
             addText({'aa_error': 'The sequence you pasted is invalid'});
-            return;
+            return false;
         }
         var seq_lower = seq.toLowerCase();
         var N= seq_lower.length;
@@ -420,8 +427,6 @@ window.onload = function() {
         }
     }
     document.getElementById('orf_min_length').onchange = function () {
-        var elements = ['error_orf', 'orf_n0', 'orf_n1', 'orf_n2', 'orfs0', 'orfs1', 'orfs2'];
-        var buttons = ['orf_check'];
         clearFields(elements = 'orf_clear', buttons = 'orf_btn_clear');
     }    
 }
