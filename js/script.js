@@ -120,18 +120,13 @@ window.onload = function() {
     function translateToProtein(index, seq, abb_one) {
         var protein = '';
         var len = seq.length;
-        for (index; index < len; index+=3) {
-            if (index < len -3){
-                var co = seq.substring(index, index + 3); // co = codon
-                protein += trcodon(co, abb_one);
-                protein += '-'; 
-            }
-            else {
-                var co = seq.substring(index, len);
-                protein += trcodon(co, abb_one);
-            }            
+        for (index; index < len - 3; index+=3) {
+            var co = seq.substring(index, index + 3); // co = codon
+            protein += trcodon(co, abb_one);
+            protein += '-';            
         }
-        //protein = protein.slice(0, -1); // To remove the last '-' in the amino acid sequence
+        co = seq.substring(index, len);
+        protein += trcodon(co, abb_one);
         return(protein);
     }
 
